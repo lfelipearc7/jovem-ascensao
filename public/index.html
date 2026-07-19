@@ -2,101 +2,111 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Jovem em Ascensão - Real</title>
-<link rel="stylesheet" href="style.css">
+<title>LIFE INC - Fix</title>
 </head>
 <body>
-<h1>🚀 Jovem em Ascensão <span class="small">[REALISTA]</span></h1>
-<div class="small">IA de Mercado • Conquistas • Online • Inflação • MBA</div>
+<h1>Jovem em Ascensão</h1>
+<button onclick="passarMes()">PRÓXIMO MÊS</button>
+<button onclick="fazerMBA()">MBA</button>
+<button onclick="investir(1)">Bolsa 1k</button>
+<button onclick="investir(2)">Imóvel 20k</button>
+<button onclick="acaoEmpresa(1)">Marketing</button>
+<button onclick="acaoEmpresa(2)">Cortar</button>
+<button onclick="acaoEmpresa(3)">Risco</button>
+<select id="selCidade" onchange="trocarCidade()"></select>
+<select id="selCasa" onchange="trocar(0,this.value)"></select>
+<select id="selCarro" onchange="trocar(1,this.value)"></select>
+<select id="selFamilia" onchange="trocar(2,this.value)"></select>
+<div id="out"></div>
 
-<div class="grid">
-  <!-- CARREIRA -->
-  <div class="card">
-    <h3>👔 Carreira</h3>
-    <div class="row"><span>Cargo:</span><b id="cargo">Estagiário</b></div>
-    <div class="row"><span>Empresa:</span><b id="empresa">TechStart</b></div>
-    <div class="row"><span>Exp:</span><b id="exp">0</b>/<span id="expReq">36</span></div>
-    <div class="row"><span>Perf:</span><b id="perf">100%</b></div>
-    <div class="row"><span>Mês:</span><b id="mes">1</b></div>
-    <div class="row"><span>Cidade:</span><b id="cidade">SP</b></div>
-    <button onclick="passarMes()">▶ Passar Mês</button>
-    <button onclick="fazerMBA()">🎓 MBA (R$15k, +exp)</button>
-    <hr><div id="ofertas"></div>
-  </div>
+<script>
+const cargos=[
+ {n:"Estagiário",s:1500,e:0},{n:"Analista Jr",s:3500,e:36},
+ {n:"Analista Pleno",s:6000,e:90},{n:"Gerente",s:12000,e:180},
+ {n:"Diretor",s:25000,e:300},{n:"COO",s:45000,e:480},{n:"CEO",s:90000,e:720}
+];
+const casas=[["Republica",400],["Alugar",1200],["Casa",3000]];
+const carros=[["Onibus",0],["Popular",800],["SUV",2500]];
+const fams=[["Solteiro",0],["Namoro",1000],["Casado+Filho",3500]];
+const cidades=[["SP",1.3],["RJ",1.1],["BH",0.9],["Interior",0.7]];
 
-  <!-- LIFESTYLE -->
-  <div class="card">
-    <h3>🏠 Lifestyle / Custos</h3>
-    <select id="selCidade" onchange="trocarCidade()"></select>
-    <select id="selCasa" onchange="trocar(0,this.value)"></select>
-    <select id="selCarro" onchange="trocar(1,this.value)"></select>
-    <select id="selFamilia" onchange="trocar(2,this.value)"></select>
-    <div class="row"><span>Contas:</span><b id="contas">R$300</b></div>
-    <div class="row"><span>Saúde:</span><b id="saude">R$200</b></div>
-  </div>
+let S={
+ mes:1,exp:0,cargoIdx:0,perf:100,patri:0,dinheiro:1500,salario:1500,empresa:"TechStart",
+ cidade:0,casa:0,carro:0,familia:0,mba:false,
+ bolsa:0,imoveis:0,caixa:10000,empLucro:0,falido:false,hist:[0],ach:{},
+ infl:0.003, sectors:{Tech:1.01}
+};
 
-  <!-- DRE PESSOAL -->
-  <div class="card">
-    <h3>📊 DRE Pessoal</h3>
-    <table>
-      <tr><th>Item</th><th>Valor</th></tr>
-      <tr><td>Bruto</td><td id="dreBruto">+R$0</td></tr>
-      <tr><td>INSS</td><td class="neg" id="dreInss">-R$0</td></tr>
-      <tr><td>IR</td><td class="neg" id="dreIr">-R$0</td></tr>
-      <tr><td>Custos+</td><td class="neg" id="dreCust">-R$0</td></tr>
-      <tr><td><b>Líquido</b></td><td id="dreLucro"><b>R$0</b></td></tr>
-      <tr><td>Patrimônio</td><td id="patri">R$0</td></tr>
-    </table>
-  </div>
+function fmt(v){return "R$ "+Math.round(v).toLocaleString('pt-BR');}
+function log(t){document.getElementById('out').innerHTML+=`<div>• ${t}</div>`;}
+function inss(b){return Math.min(b*0.11,908);}
+function ir(b){let x=b-inss(b);
+ if(x<=2259)return 0;if(x<=2826)return x*0.075-169;if(x<=3751)return x*0.15-381;
+ if(x<=4664)return x*0.225-662;return x*0.275-896;}
 
-  <!-- INVEST + IA -->
-  <div class="card">
-    <h3>💹 Investimentos & IA</h3>
-    <div class="row"><span>Bolsa(Tech):</span><b id="bolsa">R$0</b></div>
-    <div class="row"><span>Imóveis:</span><b id="imoveis">R$0</b></div>
-    <div id="market"></div>
-    <button onclick="investir(1)">Aplicar 1k Bolsa</button>
-    <button onclick="investir(2)">Imóvel 20k</button>
-  </div>
+function sel(id,arr,v){
+ document.getElementById(id).innerHTML=arr.map((a,i)=>`<option value="${i}">${a[0]}</option>`).join('');
+ document.getElementById(id).value=v;
+}
 
-  <!-- EMPRESA -->
-  <div class="card">
-    <h3>🏢 Empresa</h3>
-    <div class="row"><span>Caixa:</span><b id="caixa">R$10k</b></div>
-    <div class="row"><span>Lucro:</span><b id="empLucro">R$0</b></div>
-    <button onclick="acaoEmpresa(1)">Marketing</button>
-    <button onclick="acaoEmpresa(2)">Cortar</button>
-    <button class="risk" onclick="acaoEmpresa(3)">Risco</button>
-    <div id="falencia"></div>
-  </div>
+function atualizar(){
+ sel('selCidade',cidades,S.cidade);sel('selCasa',casas,S.casa);
+ sel('selCarro',carros,S.carro);sel('selFamilia',fams,S.familia);
+ document.getElementById('out').innerHTML=
+  `Mês:${S.mes} | Cargo:${cargos[S.cargoIdx].n} | Exp:${S.exp}/${cargos[S.cargoIdx].e}<br>
+   Salário:${fmt(S.salario)} | Patrimônio:${fmt(S.patri)} | Caixa Emp:${fmt(S.caixa)}`;
+}
 
-  <!-- GRÁFICO -->
-  <div class="card">
-    <h3>📈 Patrimônio</h3>
-    <canvas id="graf" height="130"></canvas>
-  </div>
+function passarMes(){
+ if(S.falido){log("Falido");return;}
+ S.mes++;S.exp++;
+ S.salario=Math.round(cargos[S.cargoIdx].s*(1+S.exp*0.002)*(1+S.infl));
+ S.bolsa*=(S.sectors.Tech||1.01);S.imoveis*=1.004;
+ let mult=cidades[S.cidade][1];
+ let custo=(casas[S.casa][1]+carros[S.carro][1]+fams[S.familia][1])*mult;
+ let contas=300*mult,saude=200;
+ let liq=S.salario-inss(S.salario)-ir(S.salario)-custo-contas-saude;
+ S.dinheiro+=liq;S.patri+=liq;S.patri*=(1-S.infl*0.5);
+ S.caixa+=S.empLucro;
+ if(Math.random()<0.25){
+   let e=Math.floor(Math.random()*5);
+   if(e===0){S.perf-=20;log("Aval ruim");}
+   if(e===1){S.dinheiro+=S.salario*0.5;log("Bônus");}
+   if(e===2){S.perf-=40;log("Demissão massa");}
+   if(e===3){S.caixa-=20000;log("Crise");}
+   if(e===4){S.dinheiro-=5000;log("Saúde");}
+ }
+ if(S.cargoIdx<cargos.length-1&&S.exp>=cargos[S.cargoIdx].e&&S.perf>=80&&S.empLucro>0){
+   S.cargoIdx++;S.exp=0;S.perf=100;log("Promovido "+cargos[S.cargoIdx].n);
+ }
+ if(S.caixa<-50000){S.falido=true;log("FALÊNCIA");}
+ S.hist.push(S.patri);
+ atualizar();
+}
 
-  <!-- CONQUISTAS -->
-  <div class="card">
-    <h3>🏅 Conquistas</h3>
-    <div id="ach"></div>
-  </div>
+function acaoEmpresa(t){
+ if(S.falido)return;
+ if(t===1){S.empLucro+=Math.random()*8000;S.caixa-=3000;log("Marketing");}
+ if(t===2){if(Math.random()<0.3){S.empLucro-=5000;log("Erro cortar");}else{S.empLucro+=3000;log("Cortou bem");}}
+ if(t===3){if(Math.random()<0.5){S.caixa+=40000;S.empLucro+=10000;log("Risco ok");}else{S.caixa-=30000;log("Risco ruim");}}
+ atualizar();
+}
 
-  <!-- RANKING ONLINE -->
-  <div class="card">
-    <h3>🌐 Ranking Online</h3>
-    <div id="ranking"></div>
-    <input id="pname" placeholder="Seu nome">
-    <button onclick="salvarOnline()">Salvar Online</button>
-  </div>
+function investir(t){
+ if(t===1&&S.dinheiro>1000){S.dinheiro-=1000;S.bolsa+=1000;log("Bolsa");}
+ if(t===2&&S.dinheiro>20000){S.dinheiro-=20000;S.imoveis+=20000;log("Imóvel");}
+ atualizar();
+}
 
-  <!-- LOG -->
-  <div class="card" style="grid-column:1/-1">
-    <h3>📰 Eventos / IA</h3>
-    <div id="log"></div>
-  </div>
-</div>
+function fazerMBA(){
+ if(!S.mba&&S.dinheiro>15000){S.dinheiro-=15000;S.mba=true;S.exp+=20;log("MBA");}
+ atualizar();
+}
 
-<script src="game.js"></script>
+function trocar(t,v){v=+v;if(t===0)S.casa=v;if(t===1)S.carro=v;if(t===2)S.familia=v;atualizar();}
+function trocarCidade(){S.cidade=+document.getElementById('selCidade').value;atualizar();}
+
+atualizar();
+</script>
 </body>
 </html>

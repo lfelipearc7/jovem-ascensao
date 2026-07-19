@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>LIFE INC. — Realista</title>
+<title>LIFE INC. — Carreira Corporativa</title>
 <style>
 :root{--bg:#0b1020;--card:rgba(22,30,48,.95);--border:rgba(255,255,255,.08);--green:#2ECC71;--gold:#F5C542;--txt:#fff;--txt2:#A0AEC0;--red:#ff5c5c}
 *{box-sizing:border-box;font-family:'Inter',system-ui,sans-serif}
@@ -33,8 +33,7 @@ nav button:hover{transform:scale(1.03)}
 .huge{font-size:38px;font-weight:700}
 .gold{color:var(--gold)}.green{color:var(--green)}.red{color:var(--red)}.muted{color:var(--txt2);font-size:14px}
 canvas{width:100%;background:rgba(0,0,0,.2);border-radius:12px}
-.dist{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.dist div{background:rgba(255,255,255,.03);border-radius:12px;padding:12px}
+.dist{display:grid;grid-template-columns:1fr 1fr;gap:12px}.dist div{background:rgba(255,255,255,.03);border-radius:12px;padding:12px}
 select,input{width:100%;padding:8px;border-radius:10px;background:#0b1220;color:var(--txt);border:1px solid var(--border);margin:6px 0}
 .btn2{background:#1a2238;color:var(--txt);border:1px solid var(--border);padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:600;margin:3px 0}
 .btn2:hover{background:#222c45}
@@ -44,57 +43,63 @@ select,input{width:100%;padding:8px;border-radius:10px;background:#0b1220;color:
 .event-box{background:rgba(245,197,66,.08);border:1px solid var(--gold);border-radius:12px;padding:14px;margin-top:10px}
 .ach{display:inline-block;margin:4px;padding:6px 10px;border-radius:10px;font-size:12px}
 .ach-on{background:var(--green);color:#001}.ach-off{background:#1a2238;color:var(--txt2)}
-.diff{background:#1a2238;color:var(--gold);border:1px solid var(--border);padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:700;margin:3px 0}
+.bar{height:10px;background:#1a2238;border-radius:6px;overflow:hidden;margin:4px 0}
+.bar>i{display:block;height:100%;background:var(--green)}
 </style>
 </head>
 <body>
 <header>
- <div class="left-h"><div class="avatar">VC</div><div><div style="font-weight:600">Jogador</div><div class="muted">Perfil</div></div></div>
+ <div class="left-h"><div class="avatar">VC</div><div><div style="font-weight:600">Jogador</div><div class="muted">Carreira</div></div></div>
  <div class="logo">LIFE INC.</div>
- <div class="right-h">
-  <button onclick="alert('PT-BR')">🌐 PT</button>
-  <button onclick="localStorage.setItem('lifeinc',JSON.stringify(S));alert('Salvo')">💾 Salvar</button>
-  <button onclick="location.reload()">✕ Fechar</button>
- </div>
+ <div class="right-h"><button onclick="alert('PT-BR')">🌐 PT</button><button onclick="localStorage.setItem('lifeinc',JSON.stringify(S));alert('Salvo')">💾 Salvar</button><button onclick="location.reload()">✕</button></div>
 </header>
 <div class="finpanel">
- <div class="saldo"><div class="small">Saldo Atual</div><div class="big" id="saldo">€ 0</div><div class="small green" id="ganho">+0€ / mês</div></div>
+ <div class="saldo"><div class="small">Patrimônio Pessoal</div><div class="big" id="saldo">€0</div><div class="small green" id="ganho">+€0/mês</div></div>
  <button class="nextmonth" onclick="passarMes()">PRÓXIMO MÊS →</button>
 </div>
 <nav id="menu">
  <button class="active" onclick="show('geral',this)">🏠 Visão Geral</button>
+ <button onclick="show('emp',this)">🏢 Empresa</button>
  <button onclick="show('edu',this)">🎓 Educação</button>
  <button onclick="show('vida',this)">❤️ Estilo de Vida</button>
- <button onclick="show('trab',this)">💼 Trabalho</button>
  <button onclick="show('banco',this)">🏦 Banco</button>
- <button onclick="show('imovel',this)">🏢 Imóveis</button>
- <button onclick="show('bolsa',this)">📈 Bolsa</button>
+ <button onclick="show('bolsa',this)">📈 Investimentos</button>
  <button onclick="show('rank',this)">🏆 Ranking</button>
 </nav>
+
 <div class="grid" id="geral">
  <div class="card col-4"><div class="title">👑 Patrimônio</div><div class="huge gold" id="patri">€0</div></div>
  <div class="card col-4"><div class="title">💰 Dinheiro</div><div class="huge green" id="dinheiro">€0</div></div>
- <div class="card col-4"><div class="title">📊 Fluxo Mensal</div>
-   <div class="row"><span>Receita</span><span class="green" id="rec">+€0</span></div>
-   <div class="row"><span>Despesa</span><span class="red" id="desp">-€0</span></div>
-   <div class="row"><span>Lucro</span><span id="lucro">€0</span></div>
+ <div class="card col-4"><div class="title">📊 Fluxo</div><div class="row"><span>Liq</span><b id="lucro">€0</b></div><div class="row"><span>Cargo</span><b id="cargo">Estagiário</b></div></div>
+ <div class="card col-8"><div class="title">📈 Histórico</div><canvas id="graf" height="220"></canvas></div>
+ <div class="card col-4"><div class="title">🧩 Distribuição</div><div class="dist">
+   <div>💵<br><b id="d1">€0</b></div><div>📈<br><b id="d2">€0</b></div>
+   <div>🏠<br><b id="d3">€0</b></div><div>🏢 Moral<br><b id="d4">0%</b></div></div>
  </div>
- <div class="card col-8"><div class="title">📈 Histórico Financeiro</div><canvas id="graf" height="220"></canvas></div>
- <div class="card col-4"><div class="title">🧩 Distribuição</div>
-   <div class="dist">
-     <div>💵<br>Dinheiro<br><b id="d1">€0</b></div>
-     <div>📈<br>Ações<br><b id="d2">€0</b></div>
-     <div>🏠<br>Imóveis<br><b id="d3">€0</b></div>
-     <div>🏢<br>Empresa<br><b id="d4">€0</b></div>
-   </div>
-   <div class="row" style="margin-top:10px"><span>Lucro Negócios</span><b class="green" id="lucneg">€0</b></div>
- </div>
- <div class="card col-12"><div class="title">📰 Eventos / IA</div><div id="log"></div><div id="eventSlot"></div></div>
+ <div class="card col-12"><div class="title">📰 Eventos</div><div id="log"></div><div id="eventSlot"></div></div>
 </div>
+
+<div class="grid" id="emp" style="display:none">
+ <div class="card col-12"><div class="title">🏢 Sua Empresa: <span id="empNome">TechStart</span></div>
+  <div class="row"><span>Seu Cargo</span><b id="eCargo">Estagiário</b></div>
+  <div class="row"><span>Salário</span><b id="eSal">€0</b></div>
+  <div class="row"><span>Moral na DiretorIA</span><b id="eMoral">50%</b></div>
+  <div class="bar"><i id="eMoralBar" style="width:50%"></i></div>
+  <div class="row"><span>Lucro da Empresa</span><b id="eLucro">€0</b></div>
+  <div class="row"><span>Caixa da Empresa</span><b id="eCaixa">€0</b></div>
+  <hr><div class="title">⚡ Decisões de Gestão (todo mês)</div>
+  <button class="btn2" onclick="decisao(1)">📣 Marketing (custo, pode subir lucro)</button>
+  <button class="btn2" onclick="decisao(2)">✂ Cortar custos (risco moral)</button>
+  <button class="btn2" onclick="decisao(3)">👥 Contratar (custa, +capacidade)</button>
+  <button class="btn2" onclick="decisao(4)">⚠ Projeto arriscado (alto lucro/perda)</button>
+  <div id="falencia"></div>
+ </div>
+</div>
+
 <div class="grid" id="edu" style="display:none">
  <div class="card col-12"><div class="title">🎓 Educação</div>
-  <button class="btn-green" onclick="fazerMBA()">MBA (€25k, 6 meses, +exp carreira)</button>
-  <div class="muted">MBA: <span id="mba">Não</span> | Status: <span id="mbaT">-</span></div>
+  <button class="btn-green" onclick="fazerMBA()">MBA (€25k, 6m, +moral/exp)</button>
+  <div class="muted">MBA: <span id="mba">Não</span> | <span id="mbaT">-</span></div>
  </div>
 </div>
 <div class="grid" id="vida" style="display:none">
@@ -103,56 +108,33 @@ select,input{width:100%;padding:8px;border-radius:10px;background:#0b1220;color:
   <select id="selCasa" onchange="trocar(0,this.value)"></select>
   <select id="selCarro" onchange="trocar(1,this.value)"></select>
   <select id="selFamilia" onchange="trocar(2,this.value)"></select>
-  <div class="row"><span>Contas variáveis</span><b id="contas">€300</b></div>
-  <div class="row"><span>Saúde variável</span><b id="saude">€200</b></div>
- </div>
-</div>
-<div class="grid" id="trab" style="display:none">
- <div class="card col-12"><div class="title">💼 Carreira & Propostas</div>
-  <div class="row"><span>Cargo</span><b id="cargo">Estagiário</b></div>
-  <div class="row"><span>Exp</span><b id="exp">0/36</b></div>
-  <div class="row"><span>Performance</span><b id="perf">100%</b></div>
-  <div class="row"><span>Desempregado?</span><b id="emp">Não</b></div>
-  <hr><div class="title">📨 Propostas</div><div id="ofertas"></div><hr>
-  <div class="title">🏢 Empresa</div>
-  <button class="btn2" onclick="acaoEmpresa(1)">📣 Marketing</button>
-  <button class="btn2" onclick="acaoEmpresa(2)">✂ Cortar</button>
-  <button class="btn2" onclick="acaoEmpresa(3)">⚠ Risco</button>
-  <div id="falencia"></div>
+  <div class="row"><span>Contas</span><b id="contas">€0</b></div>
+  <div class="row"><span>Saúde</span><b id="saude">€0</b></div>
  </div>
 </div>
 <div class="grid" id="banco" style="display:none">
- <div class="card col-12"><div class="title">🏦 DRE</div>
+ <div class="card col-12"><div class="title">🏦 DRE Pessoal</div>
   <table style="width:100%"><tr><th>Item</th><th>Valor</th></tr>
    <tr><td>Bruto</td><td id="dreBruto">+€0</td></tr>
    <tr><td>INSS</td><td class="red" id="dreInss">-€0</td></tr>
    <tr><td>IR</td><td class="red" id="dreIr">-€0</td></tr>
    <tr><td>Custos</td><td class="red" id="dreCust">-€0</td></tr>
    <tr><td><b>Líquido</b></td><td id="dreLucro"><b>€0</b></td></tr>
-   <tr><td>Dívida (juros)</td><td class="red" id="divida">€0</td></tr>
   </table>
  </div>
 </div>
-<div class="grid" id="imovel" style="display:none">
- <div class="card col-12"><div class="title">🏢 Imóveis</div>
-  <button class="btn-green" onclick="investir(2)">Comprar (€20k)</button>
-  <div class="row"><span>Total</span><b id="imoveis">€0</b></div>
- </div>
-</div>
 <div class="grid" id="bolsa" style="display:none">
- <div class="card col-12"><div class="title">📈 Bolsa & IA</div>
+ <div class="card col-12"><div class="title">📈 Investimentos Pessoais</div>
   <div id="market" class="muted"></div>
-  <button class="btn-green" onclick="investir(1)">Aplicar €1k</button>
-  <div class="row"><span>Carteira</span><b id="bolsaVal">€0</b></div>
+  <button class="btn-green" onclick="investir(1)">Bolsa €1k</button>
+  <button class="btn-green" onclick="investir(2)">Imóvel €20k</button>
+  <div class="row"><span>Bolsa</span><b id="bolsaVal">€0</b></div>
+  <div class="row"><span>Imóveis</span><b id="imoveis">€0</b></div>
  </div>
 </div>
 <div class="grid" id="rank" style="display:none">
- <div class="card col-12"><div class="title">🏆 Ranking & Conquistas</div>
-  <div>Dificuldade: <button class="diff" onclick="setDiff('real')">Realista</button> <button class="diff" onclick="setDiff('hard')">Hard</button> <span id="diffNow"></span></div>
-  <div id="achievements"></div><hr>
-  <input id="pname" placeholder="Nome" style="max-width:200px">
-  <button class="btn-green" onclick="salvarOnline()">Salvar</button>
-  <div id="ranking"></div>
+ <div class="card col-12"><div class="title">🏆 Conquistas</div><div id="achievements"></div><hr>
+  <input id="pname" placeholder="Nome" style="max-width:200px"><button class="btn-green" onclick="salvarOnline()">Salvar</button><div id="ranking"></div>
  </div>
 </div>
 
@@ -160,22 +142,24 @@ select,input{width:100%;padding:8px;border-radius:10px;background:#0b1220;color:
 const cargos=[
  {n:"Estagiário",s:1500,e:0},{n:"Analista Jr",s:3500,e:36},
  {n:"Analista Pleno",s:6000,e:90},{n:"Gerente",s:12000,e:180},
- {n:"Diretor",s:25000,e:300},{n:"COO",s:45000,e:480},{n:"CEO",s:90000,e:720}
+ {n:"Diretor",s:25000,e:300},{n:"VP",s:45000,e:480},{n:"CEO",s:90000,e:720}
 ];
-const casas=[["República",400],["Alugar",1200],["Casa Própria",3000]];
+const casas=[["República",400],["Alugar",1200],["Casa",3000]];
 const carros=[["Ônibus",0],["Popular",800],["SUV",2500]];
 const fams=[["Solteiro",0],["Namorando",1000],["Casado+Filho",3500]];
 const cidades=[["SP",1.4],["RJ",1.15],["BH",0.9],["Interior",0.65]];
 
 const DEFAULTS={
- mes:1,exp:0,cargoIdx:0,perf:100,patri:0,dinheiro:1500,salario:1500,empresa:"TechStart",
+ mes:1,exp:0,cargoIdx:0,perf:100,moral:50,patri:0,dinheiro:1500,salario:1500,
  cidade:0,casa:0,carro:0,familia:0,mba:false,mbaMes:0,
- bolsa:0,imoveis:0,caixa:10000,empLucro:0,falido:false,hist:[0],ach:{},
- infl:0.004, sectors:{Tech:1.01}, ofertas:[], eventoAtual:null, divida:0, desemp:false, diff:'real'
+ bolsa:0,imoveis:0,empLucro:0,empCaixa:200000,empNome:"TechStart",
+ falido:false,hist:[0],ach:{},infl:0.004,sectors:{Tech:1.01},
+ ofertas:[],eventoAtual:null,divida:0,desemp:false,diff:'real'
 };
-let S=Object.assign({}, DEFAULTS, JSON.parse(localStorage.getItem('lifeinc')||'{}'));
+let S=Object.assign({},DEFAULTS,JSON.parse(localStorage.getItem('lifeinc')||'{}'));
 
-const ACH={ceo:"🏆 CEO",milionario:"💎 1M",imovel:"🏠 2 Imóveis",sobrevivente:"🔥 Sobreviveu Falência",mba:"🎓 MBA",divida0:"💳 Limpou Dívida"};
+const ACH={ceo:"🏆 Virou CEO",milionario:"💎 1M",imovel:"🏠 2 Imóveis",sobrevivente:"🔥 Voltou de demissão",mba:"🎓 MBA",moral100:"🤝 Moral 100"};
+const EMPRESAS=["TechStart","NovaCorp","BancoVale","IndústriasBR","MetaSoft"];
 
 function fmt(v){return "€ "+Math.round(v).toLocaleString('pt-BR');}
 function log(t){let d=document.getElementById('log');if(d){d.innerHTML+=`<div>• ${t}</div>`;d.scrollTop=d.scrollHeight;}}
@@ -187,39 +171,29 @@ function ir(b){let x=b-inss(b);
 function marketIA(){
  const cycle=Math.sin(Date.now()/86400000)*12;
  S.infl=(S.diff==='hard'?0.006:0.004)+Math.random()*0.003;
- S.sectors={Tech:1+cycle/100,RealEstate:1-cycle/200};
+ S.sectors={Tech:1+cycle/100};
  const m=document.getElementById('market');if(m)m.innerHTML=`Inflação: ${(S.infl*100).toFixed(2)}% | Tech x${S.sectors.Tech.toFixed(2)}`;
 }
-
-function sel(id,arr,v){
- let mult=(id=='selCidade')?1:cidades[S.cidade][1];
- document.getElementById(id).innerHTML=arr.map((a,i)=>`<option value="${i}">${a[0]} (${fmt(a[1]*mult)})</option>`).join('');
- document.getElementById(id).value=v;
-}
+function sel(id,arr,v){let mult=(id=='selCidade')?1:cidades[S.cidade][1];
+ document.getElementById(id).innerHTML=arr.map((a,i)=>`<option value="${i}">${a[0]} (${fmt(a[1]*mult)})</option>`).join('');document.getElementById(id).value=v;}
 
 function atualizar(){
  document.getElementById('saldo').innerText=fmt(S.dinheiro+S.patri);
- document.getElementById('ganho').innerText="+"+fmt(S.empLucro>0?S.empLucro:0)+" / mês";
+ document.getElementById('ganho').innerText="+"+fmt(S.empLucro>0?S.empLucro:0)+"/mês";
  document.getElementById('patri').innerText=fmt(S.patri);
  document.getElementById('dinheiro').innerText=fmt(S.dinheiro);
  let mult=cidades[S.cidade][1];
  let custo=(casas[S.casa][1]+carros[S.carro][1]+fams[S.familia][1])*mult;
- let contas=Math.round((300+Math.random()*400)*mult), saude=Math.round(200+Math.random()*500);
- let i=inss(S.salario),r=ir(S.salario);
- let liq=S.salario-i-r-custo-contas-saude;
- document.getElementById('rec').innerText="+"+fmt(S.salario);
- document.getElementById('desp').innerText="-"+fmt(custo+contas+saude+i+r+S.divida*0.05);
- document.getElementById('lucro').innerText=fmt(liq-S.divida*0.05);
+ let contas=Math.round((300+Math.random()*400)*mult),saude=Math.round(200+Math.random()*500);
+ let i=inss(S.salario),r=ir(S.salario),liq=S.salario-i-r-custo-contas-saude;
+ document.getElementById('lucro').innerText=fmt(liq);
+ document.getElementById('cargo').innerText=S.desemp?"Desempregado":cargos[S.cargoIdx].n;
+ document.getElementById('rec')&&0;
  document.getElementById('dreBruto').innerText="+"+fmt(S.salario);
  document.getElementById('dreInss').innerText="-"+fmt(i);
  document.getElementById('dreIr').innerText="-"+fmt(r);
  document.getElementById('dreCust').innerText="-"+fmt(custo+contas+saude);
  document.getElementById('dreLucro').innerText=fmt(liq);
- document.getElementById('divida').innerText=fmt(S.divida);
- document.getElementById('cargo').innerText=S.desemp?"Desempregado":cargos[S.cargoIdx].n;
- document.getElementById('exp').innerText=S.exp+"/"+cargos[S.cargoIdx].e;
- document.getElementById('perf').innerText=S.perf+"%";
- document.getElementById('emp').innerText=S.desemp?"SIM":"Não";
  document.getElementById('contas').innerText=fmt(contas);
  document.getElementById('saude').innerText=fmt(saude);
  document.getElementById('bolsaVal').innerText=fmt(S.bolsa);
@@ -229,127 +203,107 @@ function atualizar(){
  document.getElementById('d1').innerText=fmt(S.dinheiro);
  document.getElementById('d2').innerText=fmt(S.bolsa);
  document.getElementById('d3').innerText=fmt(S.imoveis);
- document.getElementById('d4').innerText=fmt(S.caixa);
- document.getElementById('lucneg').innerText=fmt(S.empLucro);
- document.getElementById('falencia').innerHTML=S.falido?"<b class='red'>💥 FALÊNCIA</b>":"";
- document.getElementById('diffNow').innerText=S.diff.toUpperCase();
+ document.getElementById('d4').innerText=S.moral+"%";
+ document.getElementById('empNome').innerText=S.empNome;
+ document.getElementById('eCargo').innerText=S.desemp?"Desempregado":cargos[S.cargoIdx].n;
+ document.getElementById('eSal').innerText=fmt(S.salario);
+ document.getElementById('eMoral').innerText=S.moral+"%";
+ document.getElementById('eMoralBar').style.width=S.moral+"%";
+ document.getElementById('eLucro').innerText=fmt(S.empLucro);
+ document.getElementById('eCaixa').innerText=fmt(S.empCaixa);
+ document.getElementById('falencia').innerHTML=S.falido?"<b class='red'>💥 EMPRESA FALIU — você foi demitido</b>":"";
  sel('selCidade',cidades,S.cidade);sel('selCasa',casas,S.casa);sel('selCarro',carros,S.carro);sel('selFamilia',fams,S.familia);
- renderOfertas();renderEvento();renderAch();desenhar();
- localStorage.setItem('lifeinc',JSON.stringify(S));
+ renderEvento();renderAch();desenhar();localStorage.setItem('lifeinc',JSON.stringify(S));
 }
-
-function renderOfertas(){
- let box=document.getElementById('ofertas');
- if(!S.ofertas||!S.ofertas.length){box.innerHTML="<div class='muted'>Nenhuma proposta. Passe meses.</div>";return;}
- box.innerHTML=S.ofertas.map((o,i)=>`<div class="row"><span>${o.empresa} — ${o.cargo} (${fmt(o.salario)})</span><button class="btn-green" onclick="aceitarOferta(${i})">Aceitar</button></div>`).join('');
-}
-function renderEvento(){
- let slot=document.getElementById('eventSlot');
- if(!S.eventoAtual){slot.innerHTML="";return;}
- let e=S.eventoAtual;
- slot.innerHTML=`<div class="event-box"><b>⚡ ${e.titulo}</b><p>${e.texto}</p>${e.opcoes.map((op,i)=>`<button class="btn2" onclick="escolherEvento(${i})">${op.t}</button>`).join('')}</div>`;
-}
-function renderAch(){
- document.getElementById('achievements').innerHTML=Object.keys(ACH).map(k=>`<span class="ach ${S.ach[k]?'ach-on':'ach-off'}">${S.ach[k]?'✅':'❌'} ${ACH[k]}</span>`).join('');
-}
+function renderEvento(){let s=document.getElementById('eventSlot');
+ if(!S.eventoAtual){s.innerHTML="";return;}
+ let e=S.eventoAtual;s.innerHTML=`<div class="event-box"><b>⚡ ${e.titulo}</b><p>${e.texto}</p>${e.opcoes.map((o,i)=>`<button class="btn2" onclick="escolherEvento(${i})">${o.t}</button>`).join('')}</div>`;}
+function renderAch(){document.getElementById('achievements').innerHTML=Object.keys(ACH).map(k=>`<span class="ach ${S.ach[k]?'ach-on':'ach-off'}">${S.ach[k]?'✅':'❌'} ${ACH[k]}</span>`).join('');}
 
 function passarMes(){
- if(S.mbaMes>0){S.mbaMes--;if(S.mbaMes===0){S.mba=true;S.exp+=30;log("🎓 MBA concluído!");}}
+ if(S.mbaMes>0){S.mbaMes--;if(S.mbaMes===0){S.mba=true;S.exp+=40;S.moral=Math.min(100,S.moral+10);log("🎓 MBA concluído!");}}
  if(S.desemp){
-   S.dinheiro-=cidades[S.cidade][1]*500;S.patri-=cidades[S.cidade][1]*500;
-   if(Math.random()<0.3)gerarOferta();
+   S.dinheiro-=cidades[S.cidade][1]*600;S.patri-=cidades[S.cidade][1]*600;
+   if(Math.random()<0.35)gerarOferta();
  }else{
    S.mes++;S.exp++;
+   // empresa processa decisões do mês
    S.salario=Math.round(cargos[S.cargoIdx].s*(1+S.exp*0.0015)*(1+S.infl));
-   S.bolsa*=(S.sectors.Tech||1.01);S.imoveis*=1.004;
+   S.bolsa*=S.sectors.Tech;S.imoveis*=1.004;
    let mult=cidades[S.cidade][1];
    let custo=(casas[S.casa][1]+carros[S.carro][1]+fams[S.familia][1])*mult+(300+Math.random()*400)*mult;
    let saude=200+Math.random()*500;
    let liq=S.salario-inss(S.salario)-ir(S.salario)-custo-saude;
-   S.dinheiro+=liq;S.patri+=liq;
-   S.patri*=(1-S.infl); // inflação corrói patrimônio
-   S.caixa+=S.empLucro;
-   if(S.divida>0){let j=S.divida*0.05;S.divida+=j;S.dinheiro-=j;if(S.dinheiro<0){S.divida-=S.dinheiro;S.dinheiro=0;}}
-   if(Math.random()<0.5)gerarOferta();
-   if(Math.random()<0.35&&!S.eventoAtual)gerarEvento();
-   // mercado instável: demissão
-   if(S.perf<50&&Math.random()<0.15){S.desemp=true;S.perf=70;log("🔥 Demitido! Procure emprego.");}
-   if(S.cargoIdx<cargos.length-1&&S.exp>=cargos[S.cargoIdx].e&&S.perf>=85&&S.empLucro>0){S.cargoIdx++;S.exp=0;S.perf=100;log("🎉 Promovido: "+cargos[S.cargoIdx].n);}
-   if(S.caixa<-60000&&!S.falido){S.falido=true;log("💥 FALÊNCIA!");S.eventoAtual={titulo:"Recuperar?",texto:"Empresa faliu.",opcoes:[{t:"Empréstimo €60k (-perf)",a:()=>{S.caixa+=60000;S.perf-=25;}},{t:"Fechar",a:()=>{S.caixa=0;S.empLucro=0;S.falido=false;S.cargoIdx=Math.max(0,S.cargoIdx-1);}}]};}
+   S.dinheiro+=liq;S.patri+=liq;S.patri*=(1-S.infl);
+   // promoção por moral+exp
+   if(S.cargoIdx<cargos.length-1&&S.exp>=cargos[S.cargoIdx].e&&S.moral>=75){S.cargoIdx++;S.exp=0;S.moral=Math.max(60,S.moral-10);log("🎉 Promovido: "+cargos[S.cargoIdx].n);}
+   // demissão por moral baixa
+   if(S.moral<20){S.desemp=true;log("🔥 Demitido! Moral muito baixa.");S.ach.sobrevivente=true;}
+   // falência da empresa
+   if(S.empCaixa<-100000){S.falido=true;S.desemp=true;log("💥 Empresa faliu. Você está desempregado.");}
+   if(Math.random()<0.3&&!S.eventoAtual)gerarEvento();
  }
- S.hist.push(S.patri);if(S.hist.length>60)S.hist.shift();
+ S.hist.push(S.patri);if(S.hist.length>60)S.hist.shift;
  checarAch();marketIA();atualizar();
+}
+
+function decisao(t){
+ if(S.desemp||S.falido)return;
+ if(t===1){let c=5000;if(S.empCaixa>c){S.empCaixa-=c;let ok=Math.random()<0.6;if(ok){S.empLucro+=Math.floor(Math.random()*10000);S.moral=Math.min(100,S.moral+5);log("📣 Marketing bom (+lucro, +moral)");}else{S.moral=Math.max(0,S.moral-2);log("📣 Marketing sem efeito");}}}
+ if(t===2){if(Math.random()<0.5){S.empLucro+=4000;S.moral=Math.max(0,S.moral-8);log("✂ Cortou certo (+lucro, -moral)");}else{S.empLucro-=3000;S.moral=Math.max(0,S.moral-15);log("✂ Cortou errado (-lucro, -moral)");}}
+ if(t===3){let c=8000;if(S.empCaixa>c){S.empCaixa-=c;S.empLucro+=Math.floor(Math.random()*6000);S.moral=Math.min(100,S.moral+6);log("👥 Contratou (+capacidade, +moral)");}}
+ if(t===4){if(Math.random()<0.5){S.empLucro+=20000;S.empCaixa+=10000;S.moral=Math.min(100,S.moral+8);log("⚠ Projeto arriscado deu certo!");}else{S.empLucro-=8000;S.empCaixa-=5000;S.moral=Math.max(0,S.moral-12);log("⚠ Projeto deu errado (-moral)");}}
+ S.empCaixa+=S.empLucro;atualizar();
 }
 
 function gerarOferta(){
  let idx=Math.min(cargos.length-1,S.cargoIdx+(Math.random()<0.4?1:0));
  let sal=Math.round(cargos[idx].s*(0.85+Math.random()*0.4));
- S.ofertas.push({empresa:"Empresa "+(Math.floor(Math.random()*99)+1),cargo:cargos[idx].n,salario:sal,alvo:idx});
- log("📨 Proposta: "+cargos[idx].n);
+ S.ofertas.push({empresa:EMPRESAS[Math.floor(Math.random()*EMPRESAS.length)],cargo:cargos[idx].n,salario:sal,alvo:idx});
+ log("📨 Proposta: "+cargos[idx].n+" @ "+S.ofertas[S.ofertas.length-1].empresa);
 }
-function aceitarOferta(i){let o=S.ofertas[i];S.cargoIdx=o.alvo;S.salario=o.salario;S.exp=0;S.perf=85;S.desemp=false;S.ofertas.splice(i,1);log("✅ Aceitou: "+o.cargo);atualizar();}
+function aceitarOferta(i){let o=S.ofertas[i];S.cargoIdx=o.alvo;S.salario=o.salario;S.exp=0;S.moral=70;S.empNome=o.empresa;S.desemp=false;S.ofertas.splice(i,1);log("✅ Entrou em: "+o.empresa);atualizar();}
 
 function gerarEvento(){
  let evs=[
-  {titulo:"Bootcamp",texto:"Pagar €3k acelera exp?",opcoes:[{t:"Pagar",a:()=>{if(S.dinheiro>3000){S.dinheiro-=3000;S.exp+=10;}}},{t:"Não",a:()=>{}}]},
-  {titulo:"Freelance",texto:"Extra +€2k mas -perf?",opcoes:[{t:"Aceitar",a:()=>{S.dinheiro+=2000;S.perf-=5;}},{t:"Recusar",a:()=>{}}]},
-  {titulo:"Saúde",texto:"Gastar €4k família?",opcoes:[{t:"Gastar",a:()=>{S.dinheiro-=4000;}},{t:"Ignorar(-perf)",a:()=>{S.perf-=15;}}]},
-  {titulo:"Dívida",texto:"Empréstimo €10k? (juros 5%/m)",opcoes:[{t:"Pegar",a:()=>{S.divida+=10000;S.dinheiro+=10000;}},{t:"Não",a:()=>{}}]}
+  {titulo:"MBA da empresa?",texto:"Empresa paga MBA se você ficar 2 anos?",opcoes:[{t:"Aceitar (+exp)",a:()=>{S.exp+=20;}},{t:"Recusar",a:()=>{}}]},
+  {titulo:"Transferência",texto:"Ir pra SP (+salário, +custo)?",opcoes:[{t:"Ir",a:()=>{S.cidade=0;S.salario*=1.15;}},{t:"Ficar",a:()=>{}}]},
+  {titulo:"Crise",texto:"Setor Tech caiu. Segurar?",opcoes:[{t:"Segurar (-moral)",a:()=>{S.moral-=10;}},{t:"Correr (risco)",a:()=>{if(Math.random()<0.5)S.moral+=10;else S.moral-=20;}}]}
  ];
  S.eventoAtual=evs[Math.floor(Math.random()*evs.length)];
 }
 function escolherEvento(i){if(!S.eventoAtual)return;S.eventoAtual.opcoes[i].a();log("⚡ "+S.eventoAtual.opcoes[i].t);S.eventoAtual=null;atualizar();}
 
-function acaoEmpresa(t){
- if(S.falido)return;
- if(t===1){S.empLucro+=Math.floor(Math.random()*8000);S.caixa-=3000;log("📣 Marketing");}
- if(t===2){if(Math.random()<0.35){S.empLucro-=5000;log("✂ Erro");}else{S.empLucro+=3000;log("✂ Ok");}}
- if(t===3){if(Math.random()<0.5){S.caixa+=40000;S.empLucro+=10000;log("⚠ Risco ok");}else{S.caixa-=30000;log("⚠ Risco ruim");}}
- atualizar();
-}
 function investir(t){
  if(t===1&&S.dinheiro>1000){S.dinheiro-=1000;S.bolsa+=1000;log("📈 Bolsa");}
  if(t===2&&S.dinheiro>20000){S.dinheiro-=20000;S.imoveis+=20000;log("🏠 Imóvel");}
  atualizar();
 }
-function fazerMBA(){if(!S.mba&&S.mbaMes===0&&S.dinheiro>25000){S.dinheiro-=25000;S.mbaMes=6;log("🎓 MBA iniciado (6m)");}atualizar();}
+function fazerMBA(){if(!S.mba&&S.mbaMes===0&&S.dinheiro>25000){S.dinheiro-=25000;S.mbaMes=6;log("🎓 MBA iniciado");}atualizar();}
 function trocar(t,v){v=+v;if(t===0)S.casa=v;if(t===1)S.carro=v;if(t===2)S.familia=v;atualizar();}
 function trocarCidade(){S.cidade=+document.getElementById('selCidade').value;atualizar();}
-function setDiff(d){S.diff=d;log("Dificuldade: "+d);atualizar();}
 
 function checarAch(){
  if(S.cargoIdx===6)S.ach.ceo=true;
  if(S.patri>=1000000)S.ach.milionario=true;
  if(S.imoveis>=40000)S.ach.imovel=true;
- if(S.falido)S.ach.sobrevivente=true;
  if(S.mba)S.ach.mba=true;
- if(S.divida===0&&S.dinheiro>0)S.ach.divida0=true;
+ if(S.moral>=100)S.ach.moral100=true;
 }
 
-async function salvarOnline(){
- let name=document.getElementById('pname').value||"Anon";
- try{await fetch('/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,patri:Math.round(S.patri),cargo:cargos[S.cargoIdx].n,month:S.mes})});carregarRank();}
- catch(e){let r=JSON.parse(localStorage.getItem('rankLocal')||'[]');r.push({name,patri:Math.round(S.patri),cargo:cargos[S.cargoIdx].n});r.sort((a,b)=>b.patri-a.patri);localStorage.setItem('rankLocal',JSON.stringify(r.slice(0,10)));carregarRank();}
-}
-async function carregarRank(){
- let r;try{r=await fetch('/api/ranking').then(x=>x.json());}catch(e){r=JSON.parse(localStorage.getItem('rankLocal')||'[]');}
- document.getElementById('ranking').innerHTML=r.map((p,i)=>`<div class="row"><span>#${i+1} ${p.name} (${p.cargo||''})</span><b>${fmt(p.patri)}</b></div>`).join('')||"Sem dados";
-}
+async function salvarOnline(){let n=document.getElementById('pname').value||"Anon";
+ try{await fetch('/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n,patri:Math.round(S.patri),cargo:cargos[S.cargoIdx].n,month:S.mes})});carregarRank();}
+ catch(e){let r=JSON.parse(localStorage.getItem('rankLocal')||'[]');r.push({name:n,patri:Math.round(S.patri),cargo:cargos[S.cargoIdx].n});r.sort((a,b)=>b.patri-a.patri);localStorage.setItem('rankLocal',JSON.stringify(r.slice(0,10)));carregarRank();}}
+async function carregarRank(){let r;try{r=await fetch('/api/ranking').then(x=>x.json());}catch(e){r=JSON.parse(localStorage.getItem('rankLocal')||'[]');}
+ document.getElementById('ranking').innerHTML=r.map((p,i)=>`<div class="row"><span>#${i+1} ${p.name}</span><b>${fmt(p.patri)}</b></div>`).join('')||"Sem dados";}
 
-function desenhar(){
- let c=document.getElementById('graf'),x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);
- let h=S.hist,max=Math.max(...h,1),min=Math.min(...h,0);
- x.beginPath();x.strokeStyle="#F5C542";x.lineWidth=3;
+function desenhar(){let c=document.getElementById('graf'),x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);
+ let h=S.hist,max=Math.max(...h,1),min=Math.min(...h,0);x.beginPath();x.strokeStyle="#F5C542";x.lineWidth=3;
  h.forEach((v,i)=>{let px=i/(h.length-1)*c.width;let py=c.height-(v-min)/(max-min)*c.height;i?x.lineTo(px,py):x.moveTo(px,py);});
- x.stroke();x.lineTo(c.width,c.height);x.lineTo(0,c.height);x.closePath();x.fillStyle="rgba(245,197,66,.15)";x.fill();
-}
+ x.stroke();x.lineTo(c.width,c.height);x.lineTo(0,c.height);x.closePath();x.fillStyle="rgba(245,197,66,.15)";x.fill();}
 
-function show(id,btn){
- document.querySelectorAll('.grid').forEach(g=>g.style.display='none');
- document.getElementById(id).style.display='grid';
- document.querySelectorAll('#menu button').forEach(b=>b.classList.remove('active'));
- btn.classList.add('active');if(id==='rank')carregarRank();
-}
+function show(id,btn){document.querySelectorAll('.grid').forEach(g=>g.style.display='none');document.getElementById(id).style.display='grid';
+ document.querySelectorAll('#menu button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');if(id==='rank')carregarRank();}
 
 marketIA();atualizar();
 </script>

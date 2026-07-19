@@ -3,21 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>LIFE INC. — Jovem em Ascensão</title>
+<title>LIFE INC. — Realista</title>
 <style>
-:root{
- --bg:#0b1020; --card:rgba(22,30,48,.95); --border:rgba(255,255,255,.08);
- --green:#2ECC71; --gold:#F5C542; --txt:#fff; --txt2:#A0AEC0; --red:#ff5c5c;
-}
+:root{--bg:#0b1020;--card:rgba(22,30,48,.95);--border:rgba(255,255,255,.08);--green:#2ECC71;--gold:#F5C542;--txt:#fff;--txt2:#A0AEC0;--red:#ff5c5c}
 *{box-sizing:border-box;font-family:'Inter',system-ui,sans-serif}
-body{margin:0;background:
- radial-gradient(circle at 20% 10%,rgba(46,204,113,.05),transparent 40%),
- radial-gradient(circle at 80% 90%,rgba(245,197,66,.04),transparent 40%),
- var(--bg); color:var(--txt);padding-bottom:40px}
-header{position:sticky;top:0;height:90px;background:rgba(11,16,32,.9);backdrop-filter:blur(10px);
- border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:10}
-.avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--gold));
- display:flex;align-items:center;justify-content:center;font-weight:700;color:#001}
+body{margin:0;background:radial-gradient(circle at 20% 10%,rgba(46,204,113,.05),transparent 40%),radial-gradient(circle at 80% 90%,rgba(245,197,66,.04),transparent 40%),var(--bg);color:var(--txt);padding-bottom:40px}
+header{position:sticky;top:0;height:90px;background:rgba(11,16,32,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:10}
+.avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:700;color:#001}
 .left-h{display:flex;align-items:center;gap:12px}
 .logo{font-size:24px;font-weight:700;letter-spacing:2px;color:var(--gold)}
 .right-h button{background:var(--green);color:#001;border:none;padding:8px 14px;border-radius:10px;font-weight:600;cursor:pointer;margin-left:8px}
@@ -25,8 +17,7 @@ header{position:sticky;top:0;height:90px;background:rgba(11,16,32,.9);backdrop-f
 .saldo{flex:1;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:0 4px 20px #0004}
 .saldo .big{font-size:34px;font-weight:700;color:var(--gold)}
 .saldo .small{color:var(--txt2);font-size:14px}
-.nextmonth{flex:0 0 320px;background:linear-gradient(135deg,var(--green),#27ae60);border:none;border-radius:16px;
- color:#001;font-size:20px;font-weight:700;cursor:pointer;box-shadow:0 0 20px rgba(46,204,113,.4);animation:pulse 2s infinite}
+.nextmonth{flex:0 0 320px;background:linear-gradient(135deg,var(--green),#27ae60);border:none;border-radius:16px;color:#001;font-size:20px;font-weight:700;cursor:pointer;box-shadow:0 0 20px rgba(46,204,113,.4);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 20px rgba(46,204,113,.4)}50%{box-shadow:0 0 35px rgba(46,204,113,.7)}}
 .nextmonth:hover{filter:brightness(1.1)}
 nav{display:flex;gap:12px;padding:0 24px 24px;flex-wrap:wrap}
@@ -52,17 +43,13 @@ select,input{width:100%;padding:8px;border-radius:10px;background:#0b1220;color:
 #log{height:140px;overflow:auto;font-size:12px;background:rgba(0,0,0,.25);padding:10px;border-radius:10px}
 .event-box{background:rgba(245,197,66,.08);border:1px solid var(--gold);border-radius:12px;padding:14px;margin-top:10px}
 .ach{display:inline-block;margin:4px;padding:6px 10px;border-radius:10px;font-size:12px}
-.ach-on{background:var(--green);color:#001}
-.ach-off{background:#1a2238;color:var(--txt2)}
+.ach-on{background:var(--green);color:#001}.ach-off{background:#1a2238;color:var(--txt2)}
+.diff{background:#1a2238;color:var(--gold);border:1px solid var(--border);padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:700;margin:3px 0}
 </style>
 </head>
 <body>
-
 <header>
- <div class="left-h">
-  <div class="avatar">VC</div>
-  <div><div style="font-weight:600">Jogador</div><div class="muted">Perfil</div></div>
- </div>
+ <div class="left-h"><div class="avatar">VC</div><div><div style="font-weight:600">Jogador</div><div class="muted">Perfil</div></div></div>
  <div class="logo">LIFE INC.</div>
  <div class="right-h">
   <button onclick="alert('PT-BR')">🌐 PT</button>
@@ -70,16 +57,10 @@ select,input{width:100%;padding:8px;border-radius:10px;background:#0b1220;color:
   <button onclick="location.reload()">✕ Fechar</button>
  </div>
 </header>
-
 <div class="finpanel">
- <div class="saldo">
-  <div class="small">Saldo Atual</div>
-  <div class="big" id="saldo">€ 0</div>
-  <div class="small green" id="ganho">+0€ / mês</div>
- </div>
+ <div class="saldo"><div class="small">Saldo Atual</div><div class="big" id="saldo">€ 0</div><div class="small green" id="ganho">+0€ / mês</div></div>
  <button class="nextmonth" onclick="passarMes()">PRÓXIMO MÊS →</button>
 </div>
-
 <nav id="menu">
  <button class="active" onclick="show('geral',this)">🏠 Visão Geral</button>
  <button onclick="show('edu',this)">🎓 Educação</button>
@@ -90,8 +71,6 @@ select,input{width:100%;padding:8px;border-radius:10px;background:#0b1220;color:
  <button onclick="show('bolsa',this)">📈 Bolsa</button>
  <button onclick="show('rank',this)">🏆 Ranking</button>
 </nav>
-
-<!-- GERAL -->
 <div class="grid" id="geral">
  <div class="card col-4"><div class="title">👑 Patrimônio</div><div class="huge gold" id="patri">€0</div></div>
  <div class="card col-4"><div class="title">💰 Dinheiro</div><div class="huge green" id="dinheiro">€0</div></div>
@@ -110,22 +89,16 @@ select,input{width:100%;padding:8px;border-radius:10px;background:#0b1220;color:
    </div>
    <div class="row" style="margin-top:10px"><span>Lucro Negócios</span><b class="green" id="lucneg">€0</b></div>
  </div>
- <div class="card col-12"><div class="title">📰 Eventos / IA</div><div id="log"></div>
-   <div id="eventSlot"></div>
- </div>
+ <div class="card col-12"><div class="title">📰 Eventos / IA</div><div id="log"></div><div id="eventSlot"></div></div>
 </div>
-
-<!-- EDU -->
 <div class="grid" id="edu" style="display:none">
  <div class="card col-12"><div class="title">🎓 Educação</div>
-  <button class="btn-green" onclick="fazerMBA()">Fazer MBA (€15k, +20 exp, +5% perf)</button>
-  <div class="muted">MBA: <span id="mba">Não</span></div>
+  <button class="btn-green" onclick="fazerMBA()">MBA (€25k, 6 meses, +exp carreira)</button>
+  <div class="muted">MBA: <span id="mba">Não</span> | Status: <span id="mbaT">-</span></div>
  </div>
 </div>
-
-<!-- VIDA -->
 <div class="grid" id="vida" style="display:none">
- <div class="card col-12"><div class="title">❤️ Estilo de Vida (impacto direto no custo)</div>
+ <div class="card col-12"><div class="title">❤️ Estilo de Vida</div>
   <select id="selCidade" onchange="trocarCidade()"></select>
   <select id="selCasa" onchange="trocar(0,this.value)"></select>
   <select id="selCarro" onchange="trocar(1,this.value)"></select>
@@ -134,68 +107,56 @@ select,input{width:100%;padding:8px;border-radius:10px;background:#0b1220;color:
   <div class="row"><span>Saúde variável</span><b id="saude">€200</b></div>
  </div>
 </div>
-
-<!-- TRABALHO -->
 <div class="grid" id="trab" style="display:none">
  <div class="card col-12"><div class="title">💼 Carreira & Propostas</div>
   <div class="row"><span>Cargo</span><b id="cargo">Estagiário</b></div>
   <div class="row"><span>Exp</span><b id="exp">0/36</b></div>
   <div class="row"><span>Performance</span><b id="perf">100%</b></div>
-  <hr>
-  <div class="title">📨 Propostas de Emprego</div>
-  <div id="ofertas"></div>
-  <hr>
-  <div class="title">🏢 Sua Empresa (Ações)</div>
-  <button class="btn2" onclick="acaoEmpresa(1)">📣 Marketing (+lucro/-caixa)</button>
-  <button class="btn2" onclick="acaoEmpresa(2)">✂ Cortar Custos (risco)</button>
-  <button class="btn2" onclick="acaoEmpresa(3)">⚠ Toma Risco (crédito)</button>
+  <div class="row"><span>Desempregado?</span><b id="emp">Não</b></div>
+  <hr><div class="title">📨 Propostas</div><div id="ofertas"></div><hr>
+  <div class="title">🏢 Empresa</div>
+  <button class="btn2" onclick="acaoEmpresa(1)">📣 Marketing</button>
+  <button class="btn2" onclick="acaoEmpresa(2)">✂ Cortar</button>
+  <button class="btn2" onclick="acaoEmpresa(3)">⚠ Risco</button>
   <div id="falencia"></div>
  </div>
 </div>
-
-<!-- BANCO -->
 <div class="grid" id="banco" style="display:none">
- <div class="card col-12"><div class="title">🏦 DRE Pessoal</div>
+ <div class="card col-12"><div class="title">🏦 DRE</div>
   <table style="width:100%"><tr><th>Item</th><th>Valor</th></tr>
    <tr><td>Bruto</td><td id="dreBruto">+€0</td></tr>
-   <tr><td>INSS (11%)</td><td class="red" id="dreInss">-€0</td></tr>
-   <tr><td>IR (progressivo)</td><td class="red" id="dreIr">-€0</td></tr>
-   <tr><td>Custos de vida</td><td class="red" id="dreCust">-€0</td></tr>
+   <tr><td>INSS</td><td class="red" id="dreInss">-€0</td></tr>
+   <tr><td>IR</td><td class="red" id="dreIr">-€0</td></tr>
+   <tr><td>Custos</td><td class="red" id="dreCust">-€0</td></tr>
    <tr><td><b>Líquido</b></td><td id="dreLucro"><b>€0</b></td></tr>
+   <tr><td>Dívida (juros)</td><td class="red" id="divida">€0</td></tr>
   </table>
  </div>
 </div>
-
-<!-- IMOVEIS -->
 <div class="grid" id="imovel" style="display:none">
  <div class="card col-12"><div class="title">🏢 Imóveis</div>
-  <button class="btn-green" onclick="investir(2)">Comprar Imóvel (€20k, rende 0.4%/mês)</button>
-  <div class="row"><span>Total em Imóveis</span><b id="imoveis">€0</b></div>
+  <button class="btn-green" onclick="investir(2)">Comprar (€20k)</button>
+  <div class="row"><span>Total</span><b id="imoveis">€0</b></div>
  </div>
 </div>
-
-<!-- BOLSA -->
 <div class="grid" id="bolsa" style="display:none">
- <div class="card col-12"><div class="title">📈 Bolsa & IA de Mercado</div>
+ <div class="card col-12"><div class="title">📈 Bolsa & IA</div>
   <div id="market" class="muted"></div>
-  <button class="btn-green" onclick="investir(1)">Aplicar €1k (segue setor Tech)</button>
-  <div class="row"><span>Carteira Bolsa</span><b id="bolsaVal">€0</b></div>
+  <button class="btn-green" onclick="investir(1)">Aplicar €1k</button>
+  <div class="row"><span>Carteira</span><b id="bolsaVal">€0</b></div>
  </div>
 </div>
-
-<!-- RANKING -->
 <div class="grid" id="rank" style="display:none">
  <div class="card col-12"><div class="title">🏆 Ranking & Conquistas</div>
-  <div id="achievements"></div>
-  <hr>
-  <input id="pname" placeholder="Seu nome" style="max-width:200px">
-  <button class="btn-green" onclick="salvarOnline()">Salvar no Ranking</button>
+  <div>Dificuldade: <button class="diff" onclick="setDiff('real')">Realista</button> <button class="diff" onclick="setDiff('hard')">Hard</button> <span id="diffNow"></span></div>
+  <div id="achievements"></div><hr>
+  <input id="pname" placeholder="Nome" style="max-width:200px">
+  <button class="btn-green" onclick="salvarOnline()">Salvar</button>
   <div id="ranking"></div>
  </div>
 </div>
 
 <script>
-// ===== CONFIG =====
 const cargos=[
  {n:"Estagiário",s:1500,e:0},{n:"Analista Jr",s:3500,e:36},
  {n:"Analista Pleno",s:6000,e:90},{n:"Gerente",s:12000,e:180},
@@ -204,34 +165,30 @@ const cargos=[
 const casas=[["República",400],["Alugar",1200],["Casa Própria",3000]];
 const carros=[["Ônibus",0],["Popular",800],["SUV",2500]];
 const fams=[["Solteiro",0],["Namorando",1000],["Casado+Filho",3500]];
-const cidades=[["SP",1.3],["RJ",1.1],["BH",0.9],["Interior",0.7]];
+const cidades=[["SP",1.4],["RJ",1.15],["BH",0.9],["Interior",0.65]];
 
-let S=JSON.parse(localStorage.getItem('lifeinc'))||{
+const DEFAULTS={
  mes:1,exp:0,cargoIdx:0,perf:100,patri:0,dinheiro:1500,salario:1500,empresa:"TechStart",
- cidade:0,casa:0,carro:0,familia:0,mba:false,
+ cidade:0,casa:0,carro:0,familia:0,mba:false,mbaMes:0,
  bolsa:0,imoveis:0,caixa:10000,empLucro:0,falido:false,hist:[0],ach:{},
- infl:0.003, sectors:{Tech:1.01}, ofertas:[], eventoAtual:null
+ infl:0.004, sectors:{Tech:1.01}, ofertas:[], eventoAtual:null, divida:0, desemp:false, diff:'real'
 };
+let S=Object.assign({}, DEFAULTS, JSON.parse(localStorage.getItem('lifeinc')||'{}'));
 
-const ACH={
- ceo:"🏆 Vire CEO", milionario:"💎 Patrimônio 1M",
- imovel:"🏠 2 Imóveis", sobrevivente:"🔥 Sobreviveu à Falência", mba:"🎓 Fez MBA"
-};
+const ACH={ceo:"🏆 CEO",milionario:"💎 1M",imovel:"🏠 2 Imóveis",sobrevivente:"🔥 Sobreviveu Falência",mba:"🎓 MBA",divida0:"💳 Limpou Dívida"};
 
-// ===== UTILS =====
 function fmt(v){return "€ "+Math.round(v).toLocaleString('pt-BR');}
-function log(t){let d=document.getElementById('log');if(d)d.innerHTML+=`<div>• ${t}</div>`;d.scrollTop=d.scrollHeight;}
-function inss(b){return Math.min(b*0.11,908);}
+function log(t){let d=document.getElementById('log');if(d){d.innerHTML+=`<div>• ${t}</div>`;d.scrollTop=d.scrollHeight;}}
+function inss(b){return Math.min(b*0.11,908.22);}
 function ir(b){let x=b-inss(b);
- if(x<=2259)return 0;if(x<=2826)return x*0.075-169;if(x<=3751)return x*0.15-381;
- if(x<=4664)return x*0.225-662;return x*0.275-896;}
+ if(x<=2259.20)return 0;if(x<=2826.65)return x*0.075-169.44;if(x<=3751.05)return x*0.15-381.44;
+ if(x<=4664.68)return x*0.225-662.77;return x*0.275-896.11;}
 
 function marketIA(){
- const cycle=Math.sin(Date.now()/86400000)*10;
- S.infl=0.003+Math.random()*0.004;
+ const cycle=Math.sin(Date.now()/86400000)*12;
+ S.infl=(S.diff==='hard'?0.006:0.004)+Math.random()*0.003;
  S.sectors={Tech:1+cycle/100,RealEstate:1-cycle/200};
- const m=document.getElementById('market');
- if(m)m.innerHTML=`Inflação: ${(S.infl*100).toFixed(2)}% | Tech x${S.sectors.Tech.toFixed(2)}`;
+ const m=document.getElementById('market');if(m)m.innerHTML=`Inflação: ${(S.infl*100).toFixed(2)}% | Tech x${S.sectors.Tech.toFixed(2)}`;
 }
 
 function sel(id,arr,v){
@@ -240,7 +197,6 @@ function sel(id,arr,v){
  document.getElementById(id).value=v;
 }
 
-// ===== ATUALIZAR TELA =====
 function atualizar(){
  document.getElementById('saldo').innerText=fmt(S.dinheiro+S.patri);
  document.getElementById('ganho').innerText="+"+fmt(S.empLucro>0?S.empLucro:0)+" / mês";
@@ -248,191 +204,153 @@ function atualizar(){
  document.getElementById('dinheiro').innerText=fmt(S.dinheiro);
  let mult=cidades[S.cidade][1];
  let custo=(casas[S.casa][1]+carros[S.carro][1]+fams[S.familia][1])*mult;
- let contas=Math.round((300+Math.random()*200)*mult), saude=Math.round(200+Math.random()*300);
+ let contas=Math.round((300+Math.random()*400)*mult), saude=Math.round(200+Math.random()*500);
  let i=inss(S.salario),r=ir(S.salario);
  let liq=S.salario-i-r-custo-contas-saude;
  document.getElementById('rec').innerText="+"+fmt(S.salario);
- document.getElementById('desp').innerText="-"+fmt(custo+contas+saude+i+r);
- document.getElementById('lucro').innerText=fmt(liq);
+ document.getElementById('desp').innerText="-"+fmt(custo+contas+saude+i+r+S.divida*0.05);
+ document.getElementById('lucro').innerText=fmt(liq-S.divida*0.05);
  document.getElementById('dreBruto').innerText="+"+fmt(S.salario);
  document.getElementById('dreInss').innerText="-"+fmt(i);
  document.getElementById('dreIr').innerText="-"+fmt(r);
  document.getElementById('dreCust').innerText="-"+fmt(custo+contas+saude);
  document.getElementById('dreLucro').innerText=fmt(liq);
- document.getElementById('cargo').innerText=cargos[S.cargoIdx].n;
+ document.getElementById('divida').innerText=fmt(S.divida);
+ document.getElementById('cargo').innerText=S.desemp?"Desempregado":cargos[S.cargoIdx].n;
  document.getElementById('exp').innerText=S.exp+"/"+cargos[S.cargoIdx].e;
  document.getElementById('perf').innerText=S.perf+"%";
+ document.getElementById('emp').innerText=S.desemp?"SIM":"Não";
  document.getElementById('contas').innerText=fmt(contas);
  document.getElementById('saude').innerText=fmt(saude);
  document.getElementById('bolsaVal').innerText=fmt(S.bolsa);
  document.getElementById('imoveis').innerText=fmt(S.imoveis);
  document.getElementById('mba').innerText=S.mba?"Sim":"Não";
+ document.getElementById('mbaT').innerText=S.mbaMes>0?("cursando "+S.mbaMes+"m"):"-";
  document.getElementById('d1').innerText=fmt(S.dinheiro);
  document.getElementById('d2').innerText=fmt(S.bolsa);
  document.getElementById('d3').innerText=fmt(S.imoveis);
  document.getElementById('d4').innerText=fmt(S.caixa);
  document.getElementById('lucneg').innerText=fmt(S.empLucro);
- document.getElementById('falencia').innerHTML=S.falido?"<b class='red'>💥 FALÊNCIA DA EMPRESA</b>":"";
- sel('selCidade',cidades,S.cidade);sel('selCasa',casas,S.casa);
- sel('selCarro',carros,S.carro);sel('selFamilia',fams,S.familia);
- renderOfertas();renderEvento();renderAch();
- desenhar();localStorage.setItem('lifeinc',JSON.stringify(S));
+ document.getElementById('falencia').innerHTML=S.falido?"<b class='red'>💥 FALÊNCIA</b>":"";
+ document.getElementById('diffNow').innerText=S.diff.toUpperCase();
+ sel('selCidade',cidades,S.cidade);sel('selCasa',casas,S.casa);sel('selCarro',carros,S.carro);sel('selFamilia',fams,S.familia);
+ renderOfertas();renderEvento();renderAch();desenhar();
+ localStorage.setItem('lifeinc',JSON.stringify(S));
 }
 
 function renderOfertas(){
  let box=document.getElementById('ofertas');
- if(!S.ofertas.length){box.innerHTML="<div class='muted'>Nenhuma proposta agora. Passe meses para receber.</div>";return;}
- box.innerHTML=S.ofertas.map((o,i)=>`
-  <div class="row"><span>${o.empresa} — ${o.cargo} (${fmt(o.salario)})</span>
-  <button class="btn-green" onclick="aceitarOferta(${i})">Aceitar</button></div>`).join('');
+ if(!S.ofertas||!S.ofertas.length){box.innerHTML="<div class='muted'>Nenhuma proposta. Passe meses.</div>";return;}
+ box.innerHTML=S.ofertas.map((o,i)=>`<div class="row"><span>${o.empresa} — ${o.cargo} (${fmt(o.salario)})</span><button class="btn-green" onclick="aceitarOferta(${i})">Aceitar</button></div>`).join('');
 }
-
 function renderEvento(){
  let slot=document.getElementById('eventSlot');
  if(!S.eventoAtual){slot.innerHTML="";return;}
  let e=S.eventoAtual;
- slot.innerHTML=`<div class="event-box"><b>⚡ ${e.titulo}</b><p>${e.texto}</p>
-  ${e.opcoes.map((op,i)=>`<button class="btn2" onclick="escolherEvento(${i})">${op.t}</button>`).join('')}</div>`;
+ slot.innerHTML=`<div class="event-box"><b>⚡ ${e.titulo}</b><p>${e.texto}</p>${e.opcoes.map((op,i)=>`<button class="btn2" onclick="escolherEvento(${i})">${op.t}</button>`).join('')}</div>`;
 }
-
 function renderAch(){
- let a=document.getElementById('achievements');
- a.innerHTML=Object.keys(ACH).map(k=>`<span class="ach ${S.ach[k]?'ach-on':'ach-off'}">${S.ach[k]?'✅':'❌'} ${ACH[k]}</span>`).join('');
+ document.getElementById('achievements').innerHTML=Object.keys(ACH).map(k=>`<span class="ach ${S.ach[k]?'ach-on':'ach-off'}">${S.ach[k]?'✅':'❌'} ${ACH[k]}</span>`).join('');
 }
 
-// ===== AÇÕES DO JOGADOR =====
 function passarMes(){
- if(S.falido && !S.eventoAtual){log("Empresa falida. Recupere pelo evento.");}
- S.mes++;S.exp++;
- S.salario=Math.round(cargos[S.cargoIdx].s*(1+S.exp*0.002)*(1+S.infl));
- S.bolsa*=(S.sectors.Tech||1.01);S.imoveis*=1.004;
- let mult=cidades[S.cidade][1];
- let custo=(casas[S.casa][1]+carros[S.carro][1]+fams[S.familia][1])*mult+(300+Math.random()*200)*mult;
- let saude=200+Math.random()*300;
- let liq=S.salario-inss(S.salario)-ir(S.salario)-custo-saude;
- S.dinheiro+=liq;S.patri+=liq;S.patri*=(1-S.infl*0.5);
- S.caixa+=S.empLucro;
- // propostas aleatórias
- if(Math.random()<0.4)gerarOferta();
- // evento com escolha
- if(Math.random()<0.3 && !S.eventoAtual)gerarEvento();
- // promoção difícil
- if(S.cargoIdx<cargos.length-1 && S.exp>=cargos[S.cargoIdx].e && S.perf>=80 && S.empLucro>0){
-   S.cargoIdx++;S.exp=0;S.perf=100;log("🎉 Promovido a "+cargos[S.cargoIdx].n);
- }
- if(S.caixa<-50000 && !S.falido){
-   S.falido=true;log("💥 FALÊNCIA! Uma decisão aparecerá.");
-   S.eventoAtual={titulo:"Recuperar ou Fechar?",texto:"Sua empresa faliu. O que fazer?",
-    opcoes:[{t:"Pedir empréstimo (€50k, -perf)",a:()=>{S.caixa+=50000;S.perf-=20;}},
-            {t:"Fechar e virar funcionário",a:()=>{S.caixa=0;S.empLucro=0;S.falido=false;S.cargoIdx=Math.max(0,S.cargoIdx-1);}}]};
+ if(S.mbaMes>0){S.mbaMes--;if(S.mbaMes===0){S.mba=true;S.exp+=30;log("🎓 MBA concluído!");}}
+ if(S.desemp){
+   S.dinheiro-=cidades[S.cidade][1]*500;S.patri-=cidades[S.cidade][1]*500;
+   if(Math.random()<0.3)gerarOferta();
+ }else{
+   S.mes++;S.exp++;
+   S.salario=Math.round(cargos[S.cargoIdx].s*(1+S.exp*0.0015)*(1+S.infl));
+   S.bolsa*=(S.sectors.Tech||1.01);S.imoveis*=1.004;
+   let mult=cidades[S.cidade][1];
+   let custo=(casas[S.casa][1]+carros[S.carro][1]+fams[S.familia][1])*mult+(300+Math.random()*400)*mult;
+   let saude=200+Math.random()*500;
+   let liq=S.salario-inss(S.salario)-ir(S.salario)-custo-saude;
+   S.dinheiro+=liq;S.patri+=liq;
+   S.patri*=(1-S.infl); // inflação corrói patrimônio
+   S.caixa+=S.empLucro;
+   if(S.divida>0){let j=S.divida*0.05;S.divida+=j;S.dinheiro-=j;if(S.dinheiro<0){S.divida-=S.dinheiro;S.dinheiro=0;}}
+   if(Math.random()<0.5)gerarOferta();
+   if(Math.random()<0.35&&!S.eventoAtual)gerarEvento();
+   // mercado instável: demissão
+   if(S.perf<50&&Math.random()<0.15){S.desemp=true;S.perf=70;log("🔥 Demitido! Procure emprego.");}
+   if(S.cargoIdx<cargos.length-1&&S.exp>=cargos[S.cargoIdx].e&&S.perf>=85&&S.empLucro>0){S.cargoIdx++;S.exp=0;S.perf=100;log("🎉 Promovido: "+cargos[S.cargoIdx].n);}
+   if(S.caixa<-60000&&!S.falido){S.falido=true;log("💥 FALÊNCIA!");S.eventoAtual={titulo:"Recuperar?",texto:"Empresa faliu.",opcoes:[{t:"Empréstimo €60k (-perf)",a:()=>{S.caixa+=60000;S.perf-=25;}},{t:"Fechar",a:()=>{S.caixa=0;S.empLucro=0;S.falido=false;S.cargoIdx=Math.max(0,S.cargoIdx-1);}}]};}
  }
  S.hist.push(S.patri);if(S.hist.length>60)S.hist.shift();
  checarAch();marketIA();atualizar();
 }
 
 function gerarOferta(){
- let idx=Math.min(cargos.length-1, S.cargoIdx + (Math.random()<0.5?1:0));
- let sal=Math.round(cargos[idx].s*(0.9+Math.random()*0.3));
- S.ofertas.push({empresa:"Concorrente "+(Math.floor(Math.random()*99)),cargo:cargos[idx].n,salario:sal,alvo:idx});
- log("📨 Nova proposta: "+cargos[idx].n);
+ let idx=Math.min(cargos.length-1,S.cargoIdx+(Math.random()<0.4?1:0));
+ let sal=Math.round(cargos[idx].s*(0.85+Math.random()*0.4));
+ S.ofertas.push({empresa:"Empresa "+(Math.floor(Math.random()*99)+1),cargo:cargos[idx].n,salario:sal,alvo:idx});
+ log("📨 Proposta: "+cargos[idx].n);
 }
-
-function aceitarOferta(i){
- let o=S.ofertas[i];
- S.cargoIdx=o.alvo;S.salario=o.salario;S.exp=0;S.perf=90;
- S.ofertas.splice(i,1);log("✅ Aceitou: "+o.cargo);
- atualizar();
-}
+function aceitarOferta(i){let o=S.ofertas[i];S.cargoIdx=o.alvo;S.salario=o.salario;S.exp=0;S.perf=85;S.desemp=false;S.ofertas.splice(i,1);log("✅ Aceitou: "+o.cargo);atualizar();}
 
 function gerarEvento(){
  let evs=[
-  {titulo:"Bootcamp pago",texto:"Pagar €3k num curso acelera exp?",opcoes:[
-    {t:"Pagar",a:()=>{if(S.dinheiro>3000){S.dinheiro-=3000;S.exp+=10;}}},
-    {t:"Ignorar",a:()=>{}}]},
-  {titulo:"Freelance",texto:"Projeto extra de fim de semana?",opcoes:[
-    {t:"Aceitar (+€2k, -perf)",a:()=>{S.dinheiro+=2000;S.perf-=5;}},
-    {t:"Recusar",a:()=>{}}]},
-  {titulo:"Crise pessoal",texto:"Gastar €4k com saúde da família?",opcoes:[
-    {t:"Gastar",a:()=>{S.dinheiro-=4000;}},
-    {t:"Negligenciar (-perf)",a:()=>{S.perf-=15;}}]}
+  {titulo:"Bootcamp",texto:"Pagar €3k acelera exp?",opcoes:[{t:"Pagar",a:()=>{if(S.dinheiro>3000){S.dinheiro-=3000;S.exp+=10;}}},{t:"Não",a:()=>{}}]},
+  {titulo:"Freelance",texto:"Extra +€2k mas -perf?",opcoes:[{t:"Aceitar",a:()=>{S.dinheiro+=2000;S.perf-=5;}},{t:"Recusar",a:()=>{}}]},
+  {titulo:"Saúde",texto:"Gastar €4k família?",opcoes:[{t:"Gastar",a:()=>{S.dinheiro-=4000;}},{t:"Ignorar(-perf)",a:()=>{S.perf-=15;}}]},
+  {titulo:"Dívida",texto:"Empréstimo €10k? (juros 5%/m)",opcoes:[{t:"Pegar",a:()=>{S.divida+=10000;S.dinheiro+=10000;}},{t:"Não",a:()=>{}}]}
  ];
  S.eventoAtual=evs[Math.floor(Math.random()*evs.length)];
 }
-
-function escolherEvento(i){
- if(!S.eventoAtual)return;
- S.eventoAtual.opcoes[i].a();
- log("⚡ Escolha: "+S.eventoAtual.opcoes[i].t);
- S.eventoAtual=null;atualizar();
-}
+function escolherEvento(i){if(!S.eventoAtual)return;S.eventoAtual.opcoes[i].a();log("⚡ "+S.eventoAtual.opcoes[i].t);S.eventoAtual=null;atualizar();}
 
 function acaoEmpresa(t){
  if(S.falido)return;
  if(t===1){S.empLucro+=Math.floor(Math.random()*8000);S.caixa-=3000;log("📣 Marketing");}
- if(t===2){if(Math.random()<0.3){S.empLucro-=5000;log("✂ Erro corte");}else{S.empLucro+=3000;log("✂ Corte ok");}}
+ if(t===2){if(Math.random()<0.35){S.empLucro-=5000;log("✂ Erro");}else{S.empLucro+=3000;log("✂ Ok");}}
  if(t===3){if(Math.random()<0.5){S.caixa+=40000;S.empLucro+=10000;log("⚠ Risco ok");}else{S.caixa-=30000;log("⚠ Risco ruim");}}
  atualizar();
 }
-
 function investir(t){
- if(t===1&&S.dinheiro>1000){S.dinheiro-=1000;S.bolsa+=1000;log("📈 Bolsa 1k");}
+ if(t===1&&S.dinheiro>1000){S.dinheiro-=1000;S.bolsa+=1000;log("📈 Bolsa");}
  if(t===2&&S.dinheiro>20000){S.dinheiro-=20000;S.imoveis+=20000;log("🏠 Imóvel");}
  atualizar();
 }
-function fazerMBA(){if(!S.mba&&S.dinheiro>15000){S.dinheiro-=15000;S.mba=true;S.exp+=20;S.perf+=5;log("🎓 MBA feito");}atualizar();}
+function fazerMBA(){if(!S.mba&&S.mbaMes===0&&S.dinheiro>25000){S.dinheiro-=25000;S.mbaMes=6;log("🎓 MBA iniciado (6m)");}atualizar();}
 function trocar(t,v){v=+v;if(t===0)S.casa=v;if(t===1)S.carro=v;if(t===2)S.familia=v;atualizar();}
 function trocarCidade(){S.cidade=+document.getElementById('selCidade').value;atualizar();}
+function setDiff(d){S.diff=d;log("Dificuldade: "+d);atualizar();}
 
-// ===== CONQUISTAS =====
 function checarAch(){
  if(S.cargoIdx===6)S.ach.ceo=true;
  if(S.patri>=1000000)S.ach.milionario=true;
  if(S.imoveis>=40000)S.ach.imovel=true;
  if(S.falido)S.ach.sobrevivente=true;
  if(S.mba)S.ach.mba=true;
+ if(S.divida===0&&S.dinheiro>0)S.ach.divida0=true;
 }
 
-// ===== RANKING (tenta online, cai em local) =====
 async function salvarOnline(){
  let name=document.getElementById('pname').value||"Anon";
- try{
-  await fetch('/api/save',{method:'POST',headers:{'Content-Type':'application/json'},
-   body:JSON.stringify({name,patri:Math.round(S.patri),cargo:cargos[S.cargoIdx].n,month:S.mes})});
-  carregarRank();
- }catch(e){ // fallback local
-  let r=JSON.parse(localStorage.getItem('rankLocal')||'[]');
-  r.push({name,patri:Math.round(S.patri),cargo:cargos[S.cargoIdx].n});
-  r.sort((a,b)=>b.patri-a.patri);localStorage.setItem('rankLocal',JSON.stringify(r.slice(0,10)));
-  carregarRank();
- }
+ try{await fetch('/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,patri:Math.round(S.patri),cargo:cargos[S.cargoIdx].n,month:S.mes})});carregarRank();}
+ catch(e){let r=JSON.parse(localStorage.getItem('rankLocal')||'[]');r.push({name,patri:Math.round(S.patri),cargo:cargos[S.cargoIdx].n});r.sort((a,b)=>b.patri-a.patri);localStorage.setItem('rankLocal',JSON.stringify(r.slice(0,10)));carregarRank();}
 }
 async function carregarRank(){
- let r;
- try{r=await fetch('/api/ranking').then(x=>x.json());}
- catch(e){r=JSON.parse(localStorage.getItem('rankLocal')||'[]');}
+ let r;try{r=await fetch('/api/ranking').then(x=>x.json());}catch(e){r=JSON.parse(localStorage.getItem('rankLocal')||'[]');}
  document.getElementById('ranking').innerHTML=r.map((p,i)=>`<div class="row"><span>#${i+1} ${p.name} (${p.cargo||''})</span><b>${fmt(p.patri)}</b></div>`).join('')||"Sem dados";
 }
 
-// ===== GRÁFICO =====
 function desenhar(){
  let c=document.getElementById('graf'),x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);
  let h=S.hist,max=Math.max(...h,1),min=Math.min(...h,0);
  x.beginPath();x.strokeStyle="#F5C542";x.lineWidth=3;
  h.forEach((v,i)=>{let px=i/(h.length-1)*c.width;let py=c.height-(v-min)/(max-min)*c.height;i?x.lineTo(px,py):x.moveTo(px,py);});
- x.stroke();x.lineTo(c.width,c.height);x.lineTo(0,c.height);x.closePath();
- x.fillStyle="rgba(245,197,66,.15)";x.fill();
+ x.stroke();x.lineTo(c.width,c.height);x.lineTo(0,c.height);x.closePath();x.fillStyle="rgba(245,197,66,.15)";x.fill();
 }
 
-// ===== MENU =====
 function show(id,btn){
  document.querySelectorAll('.grid').forEach(g=>g.style.display='none');
  document.getElementById(id).style.display='grid';
  document.querySelectorAll('#menu button').forEach(b=>b.classList.remove('active'));
- btn.classList.add('active');
- if(id==='rank')carregarRank();
+ btn.classList.add('active');if(id==='rank')carregarRank();
 }
 
-// INIT
 marketIA();atualizar();
 </script>
 </body>

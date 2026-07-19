@@ -196,11 +196,13 @@ function ir(b){let x=b-inss(b);
  if(x<=4664)return x*0.225-662;return x*0.275-896;}
 
 function marketIA(){
- const cycle=Math.sin(Date.now()/86400000)*10;
- S.infl=0.003+Math.random()*0.004;
- S.sectors={Tech:1+cycle/100,RealEstate:1-cycle/200};
- document.getElementById('market').innerHTML=
-  `Inflação: ${(S.infl*100).toFixed(2)}% | Tech x${S.sectors.Tech.toFixed(2)}`;
+ const cycle = Math.sin(Date.now()/86400000)*10;
+ S.infl = 0.003 + Math.random()*0.004;
+ S.sectors = {Tech: 1+cycle/100, RealEstate: 1-cycle/200};
+ const m = document.getElementById('market');
+ if(m){
+   m.innerHTML = `Inflação: ${(S.infl*100).toFixed(2)}% | Tech x${S.sectors.Tech.toFixed(2)}`;
+ }
 }
 
 function sel(id,arr,v){

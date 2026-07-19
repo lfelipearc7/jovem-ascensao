@@ -203,7 +203,14 @@ function marketIA(){
   `Inflação: ${(S.infl*100).toFixed(2)}% | Tech x${S.sectors.Tech.toFixed(2)}`;
 }
 
-function sel(id,arr,v){document.getElementById(id).innerHTML=arr.map((a,i)=>`<option value="${i}">${a[0]} (${fmt(a[1]*(id=='selCidade'?1:cidades[S.cidade][1])})</option>`).join('');document.getElementById(id).value=v;}
+function sel(id,arr,v){
+ let mult = (id=='selCidade') ? 1 : cidades[S.cidade][1];
+ document.getElementById(id).innerHTML = arr.map((a,i)=>{
+   let val = Math.round(a[1]*mult);
+   return `<option value="${i}">${a[0]} (${fmt(val)})</option>`;
+ }).join('');
+ document.getElementById(id).value = v;
+}
 
 function atualizar(){
  document.getElementById('saldo').innerText=fmt(S.dinheiro+S.patri);

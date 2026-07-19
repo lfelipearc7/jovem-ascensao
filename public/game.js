@@ -11,7 +11,8 @@ const cidades=[["SP",1.3],["RJ",1.1],["BH",0.9],["Interior",0.7]];
 let S={
  mes:1,exp:0,cargoIdx:0,perf:100,patri:0,salario:1500,empresa:"TechStart",
  cidade:0,casa:0,carro:0,familia:0,mba:false,
- bolsa:0,imoveis:0,caixa:10000,empLucro:0,falido:false,hist:[0],ach:{}
+ bolsa:0,imoveis:0,caixa:10000,empLucro:0,falido:false,hist:[0],ach:{},
+ infl:0.003, sectors:{Tech:1.01}
 };
 
 const ACH={
@@ -81,16 +82,25 @@ function preencherSelect(id,arr,v){
 function passarMes(){
  if(S.falido){log("Falido. Recuperação em andamento.");return;}
  S.mes++;S.exp++;
- S.salario=Math.round(cargos[S.cargoIdx].s*(1+S.exp*0.002)*(1+S.infl||1));
+ // SALÁRIO com inflação (1)
+ S.salario=Math.round(cargos[S.cargoIdx].s*(1+S.exp*0.002)*(1+S.infl));
+ // INVESTIMENTOS com IA setor Tech (4)
  S.bolsa*=(S.sectors?.Tech||1.01);
  S.imoveis*=1.004;
+ // CUSTO DE VIDA por cidade (2) + contas/saúde variáveis (7)
  let mult=cidades[S.cidade][1];
- let custo=(casas[S.casa][1]+carros[S.carro][1]+fams[S.familia][1])*mult+500*mult;
- S.patri+=(S.salario-inss(S.salario)-ir(S.salario)-custo);
+ let custo=(casas[S.casa][1]+carros[S.carro][1]+fams[S.familia][1])*mult+ (300+Math.random()*200)*mult;
+ let saude=200+Math.random()*300;
+ // PATRIMÔNIO líquido (1 inflação corrói via custo real)
+ S.patri+=(S.salario-inss(S.salario)-ir(S.salario)-custo-saude);
+ // INFLACAO corrói patrimônio parado (1)
+ S.patri*=(1-S.infl*0.5);
  S.caixa+=S.empLucro;
  if(Math.random()<0.25)evento();
  let req=cargos[S.cargoIdx].e;
+ // PROMOÇÃO difícil
  if(S.cargoIdx<cargos.length-1&&S.exp>=req&&S.perf>=80&&S.empLucro>0){S.cargoIdx++;S.exp=0;S.perf=100;log("🎉 Promovido: "+cargos[S.cargoIdx].n);}
+ // FALÊNCIA (5)
  if(S.caixa<-50000){S.falido=true;log("💥 FALÊNCIA");}
  S.hist.push(S.patri);if(S.hist.length>60)S.hist.shift();
  marketIA();atualizar();
@@ -148,6 +158,5 @@ async function carregarRank(){
  document.getElementById('ranking').innerHTML=r.map((p,i)=>`<div class="row"><span>#${i+1} ${p.name}</span><b>${fmt(p.patri)}</b></div>`).join('');
 }
 
-// INIT
 let sv=localStorage.getItem('jovem');if(sv)S=JSON.parse(sv);
 marketIA();carregarRank();atualizar();

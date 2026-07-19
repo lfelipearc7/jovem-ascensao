@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
@@ -13,21 +12,18 @@ db.run(`CREATE TABLE IF NOT EXISTS players(
   name TEXT, patri INTEGER, cargo TEXT, month INTEGER, createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
 )`);
 
-// Ranking global
 app.get('/api/ranking', (req,res)=>{
   db.all("SELECT name,patri,cargo,month FROM players ORDER BY patri DESC LIMIT 20",(e,r)=>res.json(r));
 });
 
-// Salvar score
 app.post('/api/save',(req,res)=>{
   const {name,patri,cargo,month}=req.body;
   db.run("INSERT INTO players(name,patri,cargo,month) VALUES(?,?,?,?)",[name,patri,cargo,month]);
   res.json({ok:true});
 });
 
-// IA de mercado (simulada no servidor)
 app.get('/api/market',(req,res)=>{
-  const cycle = Math.sin(Date.now()/86400000)*10; // ciclo 10%
+  const cycle = Math.sin(Date.now()/86400000)*10;
   const inflation = 0.003 + Math.random()*0.004;
   const sectors = {
     Tech: 1+cycle/100,
